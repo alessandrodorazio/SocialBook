@@ -3,7 +3,7 @@ CREATE TABLE Editore (
     id integer AUTO_INCREMENT,
     nome char(32) NOT NULL,
 
-    PRIMARY KEY(id),
+    PRIMARY KEY(id)
 
 );
 
@@ -19,8 +19,8 @@ CREATE TABLE Pubblicazione (
     n_modifiche integer default 0,
 
     PRIMARY KEY(isbn),
-    FOREIGN KEY(editore) REFERENCES Editore(id)
-    CHECK (data_pubblicazione <= CURRENT_DATE)
+    FOREIGN KEY(editore) REFERENCES Editore(id),
+    CHECK (data_pubblicazione <= CURRENT_DATE )
 
 );
 

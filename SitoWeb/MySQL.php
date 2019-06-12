@@ -1,10 +1,10 @@
 <?php
-require_once("./Safe.php");
+require_once(dirname(__FILE__)."/Safe.php");
 
 class MySQL extends Safe
 {
     public $connection;
-    public $error           = array();
+    public $error = array();
 
     protected $host, $user, $password, $database;
 
@@ -33,8 +33,38 @@ class MySQL extends Safe
         return $this->connection;
     }
 
+    protected function CheckConnection(){
+        if(! $this->connection){
+            $e              = 'DB connection failed';
+            echo "Your exception handling".$e;
+            return false;
+        }
+        return true;
+    }
+
+
     public function Query($query){
-        return $this->Execute($query);
+        $execute  = mysqli_query($this->connection,$query);
+        return $execute;
+    }
+
+    public function Execute($query){
+        if($this->CheckConnection() === false){
+            return false;
+        }
+        $return             = array();
+        $execute = $this->Query($query);
+        if($execute === false){
+            $e = 'MySQL query error '.mysqli_error($this->connection);
+            echo "Your exception handling".$e;
+            return false;
+        }
+        if(!is_bool($execute)){
+            while($row = mysqli_fetch_array($execute)){
+                $return[]   = $row;
+            }
+        }
+        return $return;
     }
 
 }
