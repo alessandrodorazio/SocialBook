@@ -3,7 +3,8 @@ CREATE TABLE Editore (
     id integer AUTO_INCREMENT,
     nome char(32) NOT NULL,
 
-    PRIMARY KEY(id)
+    PRIMARY KEY(id),
+    UNIQUE(nome)
 
 );
 
@@ -11,8 +12,8 @@ CREATE TABLE Pubblicazione (
 
     isbn char(13),
     editore integer,
-    lingua char(32),
     titolo char(32) NOT NULL,
+    lingua char(32),
     pagine integer,
     data_pubblicazione date,
     n_like integer default 0,

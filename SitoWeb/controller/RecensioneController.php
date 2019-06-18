@@ -1,9 +1,8 @@
 <?php
 
 
-class Recensione
+class RecensioneController
 {
-
     public function crea() {
 
     }
@@ -19,6 +18,4 @@ class Recensione
     public function in_attesa() {
 
     }
-
-
 }

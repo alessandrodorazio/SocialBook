@@ -1,1 +1,3 @@
 <?php
+
+//CREATE AND REDIRECT TO SHOW
