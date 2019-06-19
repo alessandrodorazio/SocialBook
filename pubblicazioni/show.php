@@ -140,6 +140,17 @@
         </div>
     </div>
 
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#nuovo_sorgente">
+        Nuovo sorgente
+    </button>
+
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#nuovo_indice">
+        Nuovo indice
+    </button>
+
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#nuova_ristampa">
+        Nuova ristampa
+    </button>
     <div class="row">
         <div class="col-md-6">
             <h1>Dettagli pubblicazione</h1>

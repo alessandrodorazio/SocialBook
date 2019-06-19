@@ -16,13 +16,13 @@ class PubblicazioneController
 
     public static function nuovo_editore(MySQL $conn, $nome){
 
-        $editore = $conn->Execute("INSERT INTO Editore(nome) VALUES('".$nome."')");
-        return $editore[0];
+        $conn->Execute("INSERT INTO Editore(nome) VALUES('".$nome."')");
+        return self::index($conn);
     }
 
     public static function nuovo_autore(MySQL $conn, $nome, $cognome) {
         $autore = $conn->Execute("INSERT INTO Autore(nome, cognome) VALUES('".$nome."', '".$cognome."')");
-        return $autore[0];
+        return self::index($conn);
     }
 
     public static function lista_autori(MySQL $conn){
@@ -39,6 +39,7 @@ class PubblicazioneController
         $query = $query."'".$pubblicazione.");";
 
         $conn->Execute($query);
+        return self::index($conn);
     }
 
     public static function lista_sorgenti(MySQL $conn, $isbn){
@@ -53,6 +54,7 @@ class PubblicazioneController
         $query = $query."'".$numero."');";
 
         $conn->Execute($query);
+        return self::index($conn);
     }
 
     public static function lista_indici(MySQL $conn, $isbn){
@@ -67,6 +69,7 @@ class PubblicazioneController
         $query = $query."'".$data."');";
 
         $conn->Execute($query);
+        return self::index($conn);
     }
 
     public static function lista_ristampe(MySQL $conn, $isbn){
@@ -80,6 +83,7 @@ class PubblicazioneController
         $query = $query."'".$pubblicazione."',";
         $query = $query."'".$frase."');";
         $conn->Execute($query);
+        return self::index($conn);
     }
 
     public static function nuova_parola_chiave(MySQL $conn, $parola_chiave, $pubblicazione){

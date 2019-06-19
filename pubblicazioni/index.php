@@ -79,6 +79,10 @@ $pubblicazioni = PubblicazioneController::index($mysql);
         </div>
     </div>
 
+
+
+
+<div class="container pt-3">
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#nuovo_editore">
         Nuovo editore
     </button>
@@ -87,8 +91,6 @@ $pubblicazioni = PubblicazioneController::index($mysql);
         Nuovo autore
     </button>
 
-
-<div class="container pt-3">
     <h1>Lista pubblicazioni</h1>
     <table class="table table-bordered">
         <tr>

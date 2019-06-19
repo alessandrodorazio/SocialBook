@@ -7,3 +7,4 @@ include(dirname(__FILE__)."/../connect.php");
 require_once(dirname(__FILE__)."/../controller/PubblicazioneController.php");
 
 PubblicazioneController::nuovo_sorgente($mysql, $_POST["tipo"], $_POST["uri"], $_POST["formato"], $_POST["descrizione"], $_POST["isbn"]);
+header("Location: http://104.248.91.99/pubblicazioni/show.php?isbn=".$_POST["isbn"]);
