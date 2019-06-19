@@ -92,12 +92,11 @@ class PubblicazioneController
 
     public static function crea(MySQL $conn, $utente, $isbn, $editore_nome, $lingua=null, $titolo, $pagine=null, $data_pubblicazione, $sorgenti=null, $indici, $ristampe=null, $autori=null, $parole_chiave) {
 
-        $num = $conn->Execute("COUNT(*) AS totale FROM Editore WHERE nome='" . $editore_nome . "';");
+        $editore = $conn->Execute("SELECT * FROM Editore WHERE nome='" . $editore_nome . "';");
 
-        if($num[0]['totale'] == 0) {
+        if(count($editore) == 0) {
             $editore = self::nuovo_editore($conn, $editore_nome);
         }else{
-            $editore = $conn->Execute("SELECT * FROM Editore WHERE nome='" . $editore_nome . "';");
             $editore = $editore[0];
         }
 

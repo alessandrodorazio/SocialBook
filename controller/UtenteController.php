@@ -10,7 +10,8 @@ class UtenteController
     }
 
     public static function visualizza(MySQL $conn, $username) {
-
+        $utente = $conn->Execute("SELECT username FROM Utente WHERE username='".$username."');");
+        return $utente[0];
     }
 
     public static function crea(MySQL $conn, $username, $password) {
@@ -19,8 +20,9 @@ class UtenteController
         return login($conn, $username, $password);
     }
 
-    public function modifica_tipo($user_id, $nuovo_tipo) {
-        //CHANGE STATE (1)
+    public function modifica_tipo(MySQL $conn, $username, $nuovo_tipo) {
+        $conn->Execute("CALL query1('".$username."',".$nuovo_tipo.");");
+        return self::visualizza($username);
     }
 
     public function elimina($user_id) {
@@ -41,8 +43,14 @@ class UtenteController
 
     }
 
-    public function pubblicazioni_inserite($user_id) {
+    public static function pubblicazioni_inserite(MySQL $conn, $username) {
+        $pubblicazioni = $conn->Execute("CALL query5('".$username."');");
+        return $pubblicazioni;
+    }
 
+    public function rendimod(MySQL $conn, $utente){
+        $conn->Execute("CALL rendimod(".$utente.");");
+        return self::visualizza($utente);
     }
 
 }

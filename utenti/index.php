@@ -25,7 +25,7 @@ $utenti = UtenteController::index($mysql);
         <div class="row">
             <?php foreach($utenti as $utente)
                 echo    "<div class=\"col-md-4\">
-                            <p>". $utente['username'] ."</p>
+                            <p><a href='show.php/username=".$utente["username"]."'>". $utente['username'] ."</a></p>
                         </div>"
             ?>
         </div>

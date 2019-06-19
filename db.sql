@@ -139,7 +139,7 @@ CREATE TABLE Recensione (
     pubblicazione char(13),
     mi_piace bit DEFAULT FALSE,
     descrizione char(255) NOT NULL,
-    data timestamp DEFAULT CURRENT_TIMESTAMP,
+    data_inserimento timestamp DEFAULT CURRENT_TIMESTAMP,
     approvata bit DEFAULT 0,
 
     PRIMARY KEY(utente, pubblicazione),

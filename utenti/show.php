@@ -5,7 +5,9 @@ ini_set('display_errors', 1);
 include(dirname(__FILE__)."/../connect.php");
 require_once(dirname(__FILE__)."/../controller/UtenteController.php");
 
-$utenti = UtenteController::index($mysql);
+$utente = UtenteController::visualizza($mysql, $_GET["username"]);
+$mysql->close();
+$pubblicazioni = UtenteController::pubblicazioni_inserite($mysql, $_GET["username"]);
 
 ?>
 
@@ -25,9 +27,30 @@ $utenti = UtenteController::index($mysql);
         <h1>Dettagli utente</h1>
 
         <div class="row">
-            <col-md-6>
+            <div class="col-md-6">
+                <table>
+                    <tr>
+                        <th>Username</th>
+                        <td><?php echo $utente["username"]; ?></td>
+                    </tr>
+                </table>
+                <h2>Recensioni</h2>
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Pubblicazione</th>
+                        <th>Like</th>
+                        <th>Descrizione</th>
+                        <th>Data</th>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <h2>Pubblicazioni</h2>
+                <ul>
+                    <?php foreach($pubblicazioni as $pubblicazione) echo "<li><a href='../pubblicazioni/show.php?isbn=".$pubblicazione["titolo"]."'>".$pubblicazione["titolo"]."</a></li>"; ?>
+                </ul>
+            </div>
 
-            </col-md-6>
         </div>
 
     </div>
