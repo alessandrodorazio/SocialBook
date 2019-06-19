@@ -35,6 +35,110 @@
 <?php include(dirname(__FILE__) . '/../layout/navbar.php'); ?>
 <div class="container pt-3">
 
+    <div class="modal fade" id="nuovo_sorgente" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <form action="nuovo_sorgente.php" method="post">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Nuovo sorgente</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <input type="hidden" name="isbn" value="<?php echo $_GET["isbn"]; ?>">
+                        <div class="col-md-6">
+                            <label>Tipo</label>
+                            <input type="text" name="tipo" class="form-control">
+                        </div>
+                        <div class="col-md-6">
+                            <label>Formato</label>
+                            <input type="text" name="formato" class="form-control">
+                        </div>
+                        <div class="col-md-6">
+                            <label>URI</label>
+                            <input type="text" name="uri" class="form-control">
+                        </div>
+                        <div class="col-md-6">
+                            <label>Descrizione</label>
+                            <input type="text" name="descrizione" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Chiudi</button>
+                    <button type="submit" class="btn btn-primary">Inserisci</button>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal fade" id="nuova_ristampa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <form action="nuova_ristampa.php" method="post">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Nuova ristampa</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="isbn" value="<?php echo $_GET["isbn"]; ?>">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Numero</label>
+                            <input type="text" name="numero" class="form-control">
+                        </div>
+                        <div class="col-md-6">
+                            <label>Data</label>
+                            <input type="date" name="data" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Chiudi</button>
+                    <button type="submit" class="btn btn-primary">Inserisci</button>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal fade" id="nuovo_indice" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <form action="nuovo_indice.php" method="post">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Nuovo indice</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="isbn" value="<?php echo $_GET["isbn"]; ?>">
+                    TITOLO NUMERO
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Titolo</label>
+                            <input type="text" name="titolo" class="form-control">
+                        </div>
+                        <div class="col-md-6">
+                            <label>Numero</label>
+                            <input type="text" name="numero" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Chiudi</button>
+                    <button type="submit" class="btn btn-primary">Inserisci</button>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
 
     <div class="row">
         <div class="col-md-6">

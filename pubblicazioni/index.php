@@ -21,7 +21,74 @@ $pubblicazioni = PubblicazioneController::index($mysql);
 </head>
 <body class="bg-light">
 <?php include(dirname(__FILE__) . '/../layout/navbar.php'); ?>
-    <div class="container pt-3">
+
+    <div class="modal fade" id="nuovo_editore" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <form action="nuovo_editore.php" method="post">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Nuovo editore</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="text" name="nome" placeholder="Nome" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Chiudi</button>
+                        <button type="submit" class="btn btn-primary">Inserisci</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal fade" id="nuovo_autore" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <form action="nuovo_autore.php" method="post">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Nuovo autore</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="text" name="nome" placeholder="Nome" class="form-control">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" name="cognome" placeholder="Cognome" class="form-control">
+                            </div>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Chiudi</button>
+                    <button type="submit" class="btn btn-primary">Inserisci</button>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#nuovo_editore">
+        Nuovo editore
+    </button>
+
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#nuovo_autore">
+        Nuovo autore
+    </button>
+
+
+<div class="container pt-3">
     <h1>Lista pubblicazioni</h1>
     <table class="table table-bordered">
         <tr>

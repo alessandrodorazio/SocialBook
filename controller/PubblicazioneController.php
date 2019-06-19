@@ -46,10 +46,10 @@ class PubblicazioneController
         return $sorgenti;
     }
 
-    public static function nuovo_indice(MySQL $conn, $tipo, $numero, $pubblicazione){
-        $query = "INSERT INTO Indice(pubblicazione, tipo, numero) VALUES(";
+    public static function nuovo_indice(MySQL $conn, $titolo, $numero, $pubblicazione){
+        $query = "INSERT INTO Indice(pubblicazione, titolo, numero) VALUES(";
         $query = $query."'".$pubblicazione."',";
-        $query = $query."'".$tipo."',";
+        $query = $query."'".$titolo."',";
         $query = $query."'".$numero."');";
 
         $conn->Execute($query);
@@ -90,21 +90,11 @@ class PubblicazioneController
         $conn->Execute($query);
     }
 
-    public static function crea(MySQL $conn, $utente, $isbn, $editore_nome, $lingua=null, $titolo, $pagine=null, $data_pubblicazione, $sorgenti=null, $indici, $ristampe=null, $autori=null, $parole_chiave) {
-
-        $editore = $conn->Execute("SELECT * FROM Editore WHERE nome='" . $editore_nome . "';");
-
-        if(count($editore) == 0) {
-            $editore = self::nuovo_editore($conn, $editore_nome);
-        }else{
-            $editore = $editore[0];
-        }
-
-        $editore_id = $editore["id"];
+    public static function crea(MySQL $conn, $utente, $isbn, $editore, $lingua=null, $titolo, $pagine=null, $data_pubblicazione, $sorgenti=null, $indici, $ristampe=null, $autori=null, $parole_chiave) {
 
         $query = "INSERT INTO Pubblicazione(isbn, editore, titolo, lingua, pagine, data_pubblicazione) VALUES (";
         $query = $query."'".$isbn."',";
-        $query = $query."'".$editore_id."',";
+        $query = $query."'".$editore."',";
         $query = $query."'".$titolo."',";
         $query = $query."'".$lingua."',";
         $query = $query."'".$pagine."',";
