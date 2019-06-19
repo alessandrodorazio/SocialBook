@@ -48,7 +48,7 @@ $ristampe = PubblicazioneController::lista_ristampe($mysql, $_GET["isbn"]);
                 </tr>
                 <?php
                 foreach($sorgenti as $sorgente){
-                    echo "<td>".$sorgente["tipo"]."</td><td>".$sorgente["uri"]."</td>"."<td>".$sorgente["formato"]."</td><td>".$sorgente["descrizione"]"</td>";
+                    echo "<td>".$sorgente["tipo"]."</td><td>".$sorgente["uri"]."</td>"."<td>".$sorgente["formato"]."</td><td>".$sorgente["descrizione"]."</td>";
                 }
                 ?>
             </table>
