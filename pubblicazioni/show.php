@@ -33,7 +33,7 @@ $log = PubblicazioneController::log($mysql, $_GET["isbn"]);
             <p>Editore: <?php echo $pubblicazione["editore"]; ?></p>
             <p>Lingua: <?php echo $pubblicazione["lingua"]; ?></p>
             <p>Pagine: <?php echo $pubblicazione["pagine"]; ?></p>
-            <p>Data pubblicazione: <?php echo $pubblicazione["data_pubblicazione"]; ?></p>
+            <p>Data pubblicazione: <?php echo date("d-m-Y", strtotime($pubblicazione["data_pubblicazione"])); ?></p>
             <p>Parole chiave</p>
             LISTA SORGENTI
 
@@ -56,7 +56,7 @@ $log = PubblicazioneController::log($mysql, $_GET["isbn"]);
                    echo "<tr>
                             <td>".$l["frase"]."</td>
                             <td>".$l["username"]."</td>
-                            <td>".date("d-m-Y HH:mm", strtotime($l["data_modifica"]))."</td>
+                            <td>".date("d-m-Y H:m", strtotime($l["data_modifica"]))."</td>
                         </tr>";
                 }?>
             </table>

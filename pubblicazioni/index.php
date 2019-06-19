@@ -35,7 +35,7 @@ $pubblicazioni = PubblicazioneController::index($mysql);
                 <td><a href='show.php?id=".$pubblicazione["isbn"]."'>".$pubblicazione["titolo"]."</a></td>
                 <td>". $pubblicazione["autori"] ."</td>
                 <td>". $pubblicazione["editore"]."</td>
-                <td>". $pubblicazione["data_pubblicazione"]."</td>
+                <td>". date("d-m-Y", strtotime($pubblicazione["data_pubblicazione"]))."</td>
             </tr>";
 
         }?>
