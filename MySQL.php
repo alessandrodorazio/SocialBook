@@ -67,4 +67,8 @@ class MySQL extends Safe
         return $return;
     }
 
+    public function close(){
+        mysqli_close($this->connection);
+    }
+
 }

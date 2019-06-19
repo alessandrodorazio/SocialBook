@@ -6,9 +6,17 @@ include(dirname(__FILE__)."/../connect.php");
 require_once(dirname(__FILE__)."/../controller/PubblicazioneController.php");
 
 $pubblicazione = PubblicazioneController::visualizza($mysql, $_GET["isbn"]);
+$mysql->close();
+$mysql->MySQLConnect();
 $log = PubblicazioneController::log($mysql, $_GET["isbn"]);
+$mysql->close();
+$mysql->MySQLConnect();
 $sorgenti = PubblicazioneController::lista_sorgenti($mysql, $_GET["isbn"]);
+$mysql->close();
+$mysql->MySQLConnect();
 $indici = PubblicazioneController::lista_indici($mysql, $_GET["isbn"]);
+$mysql->close();
+$mysql->MySQLConnect();
 $ristampe = PubblicazioneController::lista_ristampe($mysql, $_GET["isbn"]);
 
 ?>
