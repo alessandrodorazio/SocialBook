@@ -56,7 +56,7 @@ $log = PubblicazioneController::log($mysql, $_GET["isbn"]);
                    echo "<tr>
                             <td>".$l["frase"]."</td>
                             <td>".$l["username"]."</td>
-                            <td>".$l["data_modifica"]."</td>
+                            <td>".date("d-m-Y HH:mm", strtotime($l["data_modifica"]))."</td>
                         </tr>";
                 }?>
             </table>
