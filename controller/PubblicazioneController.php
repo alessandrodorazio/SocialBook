@@ -94,7 +94,7 @@ class PubblicazioneController
 
         $num = $conn->Execute("COUNT(*) AS totale FROM Editore WHERE nome='" . $editore_nome . "';");
 
-        if($num['totale'] == 0) {
+        if($num[0]['totale'] == 0) {
             $editore = self::nuovo_editore($conn, $editore_nome);
         }else{
             $editore = $conn->Execute("SELECT * FROM Editore WHERE nome='" . $editore_nome . "';");
