@@ -41,6 +41,11 @@ class PubblicazioneController
         $conn->Execute($query);
     }
 
+    public static function lista_sorgenti(MySQL $conn, $isbn){
+        $sorgenti = $conn->Execute("SELECT * FROM Sorgente WHERE pubblicazione='".$isbn."';");
+        return $sorgenti;
+    }
+
     public static function nuovo_indice(MySQL $conn, $tipo, $numero, $pubblicazione){
         $query = "INSERT INTO Indice(pubblicazione, tipo, numero) VALUES(";
         $query = $query."'".$pubblicazione."',";
@@ -50,6 +55,11 @@ class PubblicazioneController
         $conn->Execute($query);
     }
 
+    public static function lista_indici(MySQL $conn, $isbn){
+        $indici = $conn->Execute("SELECT * FROM Indice WHERE pubblicazione='".$isbn."';");
+        return $indici;
+    }
+
     public static function nuova_ristampa(MySQL $conn, $pubblicazione, $numero, $data){
         $query = "INSERT INTO Ristampe(pubblicazione, numero, data_ristampa) VALUES(";
         $query = $query."'".$pubblicazione."',";
@@ -57,6 +67,11 @@ class PubblicazioneController
         $query = $query."'".$data."');";
 
         $conn->Execute($query);
+    }
+
+    public static function lista_ristampe(MySQL $conn, $isbn){
+        $ristampe = $conn->Execute("SELECT * FROM Ristampe WHERE pubblicazione='".$isbn."';");
+        return $ristampe;
     }
 
     public static function nuova_storia(MySQL $conn, $utente, $pubblicazione, $frase){

@@ -7,6 +7,9 @@ require_once(dirname(__FILE__)."/../controller/PubblicazioneController.php");
 
 $pubblicazione = PubblicazioneController::visualizza($mysql, $_GET["isbn"]);
 $log = PubblicazioneController::log($mysql, $_GET["isbn"]);
+$sorgenti = PubblicazioneController::lista_sorgenti($mysql, $_GET["isbn"]);
+$indici = PubblicazioneController::lista_indici($mysql, $_GET["isbn"]);
+$ristampe = PubblicazioneController::lista_ristampe($mysql, $_GET["isbn"]);
 
 ?>
 
@@ -33,9 +36,37 @@ $log = PubblicazioneController::log($mysql, $_GET["isbn"]);
             <p>Editore: <?php echo $pubblicazione["editore"]; ?></p>
             <p>Lingua: <?php echo $pubblicazione["lingua"]; ?></p>
             <p>Pagine: <?php echo $pubblicazione["pagine"]; ?></p>
-            <p>Data pubblicazione: <?php echo date("d-m-Y", strtotime($pubblicazione["data_pubblicazione"])); ?></p>
+            <p>Data pubblicazione: <?php echo date("d/m/Y", strtotime($pubblicazione["data_pubblicazione"])); ?></p>
             <p>Parole chiave</p>
-            LISTA SORGENTI
+            <h2>Sorgenti</h2>
+            <table>
+                <tr>
+                    <th>Tipo</th>
+                    <th>URI</th>
+                    <th>Formato</th>
+                    <th>Descrizione</th>
+                </tr>
+                <?php
+                foreach($sorgenti as $sorgente){
+                    echo "<td>".$sorgente["tipo"]."</td><td>".$sorgente["uri"]."</td>"."<td>".$sorgente["formato"]."</td><td>".$sorgente["descrizione"]"</td>";
+                }
+                ?>
+            </table>
+
+            <h2>Indici</h2>
+            <table>
+                <tr>
+                    <th>Numero</th>
+                    <th>Titolo</th>
+                </tr>
+            </table>
+            <h2>Ristampe</h2>
+            <table>
+                <tr>
+                    <th>Numero</th>
+                    <th>Data</th>
+                </tr>
+            </table>
 
             <h4 class="mt-4">Recensisci</h4>
             <form action="#">
@@ -56,21 +87,20 @@ $log = PubblicazioneController::log($mysql, $_GET["isbn"]);
                    echo "<tr>
                             <td>".$l["frase"]."</td>
                             <td>".$l["username"]."</td>
-                            <td>".date("d-m-Y H:m", strtotime($l["data_modifica"]))."</td>
+                            <td>".date("d/m/Y H:m", strtotime($l["data_modifica"]))."</td>
                         </tr>";
                 }?>
             </table>
+
+            <h3>Recensioni</h3>
+            <p>
+                A Utente è piaciuta questa pubblicazione e ha scritto: (16/07/2019)
+                <br>
+                Descrizione della recensione
+            </p>
         </div>
     </div>
 
-
-    <?php //foreach ?>
-    <h3>Recensioni</h3>
-    <p>
-        A Utente è piaciuta questa pubblicazione e ha scritto: (16/07/2019)
-        <br>
-        Descrizione della recensione
-    </p>
 
 </div>
 
