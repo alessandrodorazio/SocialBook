@@ -9,6 +9,9 @@ $utente = UtenteController::visualizza($mysql, $_GET["username"]);
 $mysql->close();
 $mysql->MySQLConnect();
 $pubblicazioni = UtenteController::pubblicazioni_inserite($mysql, $_GET["username"]);
+$mysql->close();
+$mysql->MySQLConnect();
+$recensioni = UtenteController::recensioni_utente($mysql, $_GET["username"]);
 
 ?>
 
@@ -43,6 +46,10 @@ $pubblicazioni = UtenteController::pubblicazioni_inserite($mysql, $_GET["usernam
                         <th>Descrizione</th>
                         <th>Data</th>
                     </tr>
+                    <?php
+                        foreach($recensioni as $recensione)
+                            echo "<td>".$recensione["pubblicazione"]."</td><td>".$recensione["mi_piace"]."</td><td>".$recensione["descrizione"]."</td><td>".$recensione["data"]."</td>"
+                    ?>
                 </table>
             </div>
             <div class="col-md-6">
