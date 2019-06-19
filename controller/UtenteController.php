@@ -10,7 +10,7 @@ class UtenteController
     }
 
     public static function visualizza(MySQL $conn, $username) {
-        $utente = $conn->Execute("SELECT username FROM Utente WHERE username='".$username."');");
+        $utente = $conn->Execute("SELECT username FROM Utente WHERE username='".$username."';");
         return $utente[0];
     }
 
