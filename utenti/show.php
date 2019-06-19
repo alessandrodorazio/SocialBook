@@ -7,6 +7,7 @@ require_once(dirname(__FILE__)."/../controller/UtenteController.php");
 
 $utente = UtenteController::visualizza($mysql, $_GET["username"]);
 $mysql->close();
+$mysql->MySQLConnect();
 $pubblicazioni = UtenteController::pubblicazioni_inserite($mysql, $_GET["username"]);
 
 ?>

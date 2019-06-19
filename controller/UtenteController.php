@@ -43,6 +43,11 @@ class UtenteController
 
     }
 
+    public function recensioni(MySQL $conn, $username) {
+        $recensioni = $conn->Execute("CALL recensioni_utente('".$username."');");
+        return $recensioni;
+    }
+
     public static function pubblicazioni_inserite(MySQL $conn, $username) {
         $pubblicazioni = $conn->Execute("CALL query5('".$username."');");
         return $pubblicazioni;
