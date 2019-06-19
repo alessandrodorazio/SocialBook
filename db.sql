@@ -17,7 +17,6 @@ CREATE TABLE Pubblicazione (
     pagine integer,
     data_pubblicazione date,
     n_like integer default 0,
-    n_modifiche integer default 0,
 
     PRIMARY KEY(isbn),
     FOREIGN KEY(editore) REFERENCES Editore(id),

@@ -1,23 +1,23 @@
 <?php
-error_reporting( E_ALL );
-ini_set('display_errors', 1);
+    error_reporting( E_ALL );
+    ini_set('display_errors', 1);
 
-include(dirname(__FILE__)."/../connect.php");
-require_once(dirname(__FILE__)."/../controller/PubblicazioneController.php");
+    include(dirname(__FILE__)."/../connect.php");
+    require_once(dirname(__FILE__)."/../controller/PubblicazioneController.php");
 
-$pubblicazione = PubblicazioneController::visualizza($mysql, $_GET["isbn"]);
-$mysql->close();
-$mysql->MySQLConnect();
-$log = PubblicazioneController::log($mysql, $_GET["isbn"]);
-$mysql->close();
-$mysql->MySQLConnect();
-$sorgenti = PubblicazioneController::lista_sorgenti($mysql, $_GET["isbn"]);
-$mysql->close();
-$mysql->MySQLConnect();
-$indici = PubblicazioneController::lista_indici($mysql, $_GET["isbn"]);
-$mysql->close();
-$mysql->MySQLConnect();
-$ristampe = PubblicazioneController::lista_ristampe($mysql, $_GET["isbn"]);
+    $pubblicazione = PubblicazioneController::visualizza($mysql, $_GET["isbn"]);
+    $mysql->close();
+    $mysql->MySQLConnect();
+    $log = PubblicazioneController::log($mysql, $_GET["isbn"]);
+    $mysql->close();
+    $mysql->MySQLConnect();
+    $sorgenti = PubblicazioneController::lista_sorgenti($mysql, $_GET["isbn"]);
+    $mysql->close();
+    $mysql->MySQLConnect();
+    $indici = PubblicazioneController::lista_indici($mysql, $_GET["isbn"]);
+    $mysql->close();
+    $mysql->MySQLConnect();
+    $ristampe = PubblicazioneController::lista_ristampe($mysql, $_GET["isbn"]);
 
 ?>
 
@@ -47,7 +47,7 @@ $ristampe = PubblicazioneController::lista_ristampe($mysql, $_GET["isbn"]);
             <p>Data pubblicazione: <?php echo date("d/m/Y", strtotime($pubblicazione["data_pubblicazione"])); ?></p>
             <p>Parole chiave</p>
             <h2>Sorgenti</h2>
-            <table>
+            <table class="table table-bordered">
                 <tr>
                     <th>Tipo</th>
                     <th>URI</th>
@@ -62,13 +62,13 @@ $ristampe = PubblicazioneController::lista_ristampe($mysql, $_GET["isbn"]);
             </table>
 
             <h2>Indici</h2>
-            <table>
+            <table class="table table-bordered">
                 <tr>
                     <th>Numero</th>
                     <th>Titolo</th>
                 </tr>
             </table>
-            <h2>Ristampe</h2>
+            <h2 class="table table-borderd">Ristampe</h2>
             <table>
                 <tr>
                     <th>Numero</th>
@@ -76,12 +76,7 @@ $ristampe = PubblicazioneController::lista_ristampe($mysql, $_GET["isbn"]);
                 </tr>
             </table>
 
-            <h4 class="mt-4">Recensisci</h4>
-            <form action="#">
-                Mi piace <input type="checkbox" name="like">
-                <textarea name="descrizione" id="" cols="30" rows="10" placeholder="Lascia una recensione" class="form-control"></textarea>
-                <button class="btn btn-success float-right mt-2">Salva</button>
-            </form>
+
         </div>
         <div class="col-md-6">
             <h2>Registro modifiche</h2>
@@ -100,7 +95,14 @@ $ristampe = PubblicazioneController::lista_ristampe($mysql, $_GET["isbn"]);
                 }?>
             </table>
 
-            <h3>Recensioni</h3>
+            <h4 class="mt-4">Recensisci</h4>
+            <form action="#">
+                Mi piace <input type="checkbox" name="like">
+                <textarea name="descrizione" id="" cols="30" rows="10" placeholder="Lascia una recensione" class="form-control"></textarea>
+                <button class="btn btn-success float-right mt-2">Salva</button>
+            </form>
+
+            <h4>Recensioni</h4>
             <p>
                 A Utente è piaciuta questa pubblicazione e ha scritto: (16/07/2019)
                 <br>

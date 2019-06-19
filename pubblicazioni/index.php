@@ -32,7 +32,7 @@ $pubblicazioni = PubblicazioneController::index($mysql);
         </tr>
         <?php foreach($pubblicazioni as $pubblicazione) {
             echo "<tr>
-                <td><a href='show.php?id=".$pubblicazione["isbn"]."'>".$pubblicazione["titolo"]."</a></td>
+                <td><a href='show.php?isbn=".$pubblicazione["isbn"]."'>".$pubblicazione["titolo"]."</a></td>
                 <td>". $pubblicazione["autori"] ."</td>
                 <td>". $pubblicazione["editore"]."</td>
                 <td>". date("d/m/Y", strtotime($pubblicazione["data_pubblicazione"]))."</td>
