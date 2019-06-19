@@ -22,7 +22,7 @@ $pubblicazioni = PubblicazioneController::index($mysql);
 <body class="bg-light">
 <?php include(dirname(__FILE__) . '/../layout/navbar.php'); ?>
     <div class="container pt-3">
-
+    <h1>Lista pubblicazioni</h1>
     <table class="table table-bordered">
         <tr>
             <th>Titolo</th>
@@ -30,13 +30,16 @@ $pubblicazioni = PubblicazioneController::index($mysql);
             <th>Editore</th>
             <th>Anno di pubblicazione</th>
         </tr>
-        <?php foreach($pubblicazioni as $pubblicazione) ?>
-        <tr>
-            <td><? echo $pubblicazione["titolo"]; ?></td>
-            <td><? //echo $pubblicazione["autore"]; ?></td>
-            <td><? //echo $pubblicazione["editore"]; ?></td>
-            <td><? //echo $pubblicazione["anno_pubblicazione"]; ?></td>
-        </tr>
+        <?php foreach($pubblicazioni as $pubblicazione) {
+            echo "<tr>
+                <td><a href='show.php?id=".$pubblicazione["isbn"]."'>".$pubblicazione["titolo"]."</a></td>
+                <td>". $pubblicazione["autori"] ."</td>
+                <td>". $pubblicazione["editore"]."</td>
+                <td>". $pubblicazione["data_pubblicazione"]."</td>
+            </tr>";
+
+        }?>
+
 
     </table>
 

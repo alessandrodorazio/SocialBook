@@ -5,7 +5,8 @@ ini_set('display_errors', 1);
 include(dirname(__FILE__)."/../connect.php");
 require_once(dirname(__FILE__)."/../controller/PubblicazioneController.php");
 
-$pubblicazioni = PubblicazioneController::index($mysql);
+$pubblicazione = PubblicazioneController::visualizza($mysql, $_GET["isbn"]);
+$log = PubblicazioneController::log($mysql, $_GET["isbn"]);
 
 ?>
 
@@ -25,14 +26,14 @@ $pubblicazioni = PubblicazioneController::index($mysql);
 
 
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-6">
             <h1>Dettagli pubblicazione</h1>
-            <p>Titolo</p>
-            <p>ISBN</p>
-            <p>Editore</p>
-            <p>Lingua</p>
-            <p>Pagine</p>
-            <p>Data pubblicazione</p>
+            <p>Titolo: <?php echo $pubblicazione["titolo"]; ?></p>
+            <p>ISBN: <?php echo $pubblicazione["isbn"]; ?></p>
+            <p>Editore: <?php echo $pubblicazione["editore"]; ?></p>
+            <p>Lingua: <?php echo $pubblicazione["lingua"]; ?></p>
+            <p>Pagine: <?php echo $pubblicazione["pagine"]; ?></p>
+            <p>Data pubblicazione: <?php echo $pubblicazione["data_pubblicazione"]; ?></p>
             <p>Parole chiave</p>
             LISTA SORGENTI
 
@@ -43,7 +44,7 @@ $pubblicazioni = PubblicazioneController::index($mysql);
                 <button class="btn btn-success float-right mt-2">Salva</button>
             </form>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
             <h2>Registro modifiche</h2>
             <table class="table table-bordered">
                 <tr>
@@ -51,6 +52,13 @@ $pubblicazioni = PubblicazioneController::index($mysql);
                     <th>Utente</th>
                     <th>Data</th>
                 </tr>
+                <?php foreach($log as $l){
+                   echo "<tr>
+                            <td>".$l["frase"]."</td>
+                            <td>".$l["username"]."</td>
+                            <td>".$l["data_modifica"]."</td>
+                        </tr>";
+                }?>
             </table>
         </div>
     </div>

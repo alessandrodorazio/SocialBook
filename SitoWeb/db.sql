@@ -40,9 +40,9 @@ CREATE TABLE Autore (
 CREATE TABLE Utente (
 
     username char(32),
-    tipologia bit DEFAULT 0,
+    tipologia integer DEFAULT 0,
     email char(32) NOT NULL,
-    password char(32) NOT NULL,
+    password char(128) NOT NULL,
 
     PRIMARY KEY(username),
     UNIQUE(email)
@@ -80,8 +80,8 @@ CREATE TABLE Ristampe (
 
     id integer AUTO_INCREMENT,
     pubblicazione  char(13) NOT NULL,
-    numero integer NOT NULL,
-    data date NOT NULL,
+    numero char(13) NOT NULL,
+    data_ristampa date NOT NULL,
 
     PRIMARY KEY(id),
     FOREIGN KEY (pubblicazione) REFERENCES Pubblicazione(isbn),
@@ -98,9 +98,10 @@ CREATE TABLE Sorgente (
     uri char(32),
     formato char(32) NOT NULL,
     descrizione char(255) NOT NULL,
-    pubblicazione integer NOT NULL,
+    pubblicazione char(13) NOT NULL,
 
-    FOREIGN KEY (pubblicazione) REFERENCES Pubblicazione(isbn)
+    PRIMARY KEY(id),
+    FOREIGN KEY(pubblicazione) REFERENCES Pubblicazione(isbn)
 
 );
 
@@ -108,7 +109,7 @@ CREATE TABLE Sorgente (
 CREATE TABLE Autore_Pubblicazione (
 
     autore integer,
-    pubblicazione integer,
+    pubblicazione char(13),
 
     PRIMARY KEY(autore, pubblicazione),
     FOREIGN KEY(autore) REFERENCES Autore(id),
@@ -122,7 +123,7 @@ CREATE TABLE Storia (
 
     id integer AUTO_INCREMENT,
     utente char(32) NOT NULL,
-    pubblicazione integer NOT NULL,
+    pubblicazione char(13) NOT NULL,
     frase char(128),
     data_modifica timestamp DEFAULT CURRENT_TIMESTAMP,
 
@@ -136,11 +137,11 @@ CREATE TABLE Storia (
 CREATE TABLE Recensione (
 
     utente char(32),
-    pubblicazione integer,
-    like bit DEFAULT FALSE,
+    pubblicazione char(13),
+    mi_piace bit DEFAULT FALSE,
     descrizione char(255) NOT NULL,
-    data timestamp DEFAULT CURRENT_TIMESTAMP ,
-    approvata bit DEFAULT FALSE,
+    data timestamp DEFAULT CURRENT_TIMESTAMP,
+    approvata bit DEFAULT 0,
 
     PRIMARY KEY(utente, pubblicazione),
     FOREIGN KEY(Utente) REFERENCES Utente(username),

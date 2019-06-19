@@ -5,42 +5,142 @@ class PubblicazioneController
 {
 
     public static function index(MySQL $conn){
-        $pubblicazioni = $conn->Execute("SELECT * FROM Pubblicazione");
+        $pubblicazioni = $conn->Execute("CALL query6();");
         return $pubblicazioni;
     }
 
     public static function visualizza(MYSQL $conn, $isbn) {
         $pubblicazione = $conn->Execute("SELECT * FROM Pubblicazione WHERE isbn =".$isbn);
-        return $pubblicazione;
+        return $pubblicazione[0];
     }
 
-    public function crea(MySQL $conn, $editore_nome, $isbn, $lingua, $titolo, $pagine, $data_pubblicazione) {
+    public static function nuovo_editore(MySQL $conn, $nome){
+
+        $editore = $conn->Execute("INSERT INTO Editore(nome) VALUES('".$nome."')");
+        return $editore[0];
+    }
+
+    public static function nuovo_autore(MySQL $conn, $nome, $cognome) {
+        $autore = $conn->Execute("INSERT INTO Autore(nome, cognome) VALUES('".$nome."', '".$cognome."')");
+        return $autore[0];
+    }
+
+    public static function lista_autori(MySQL $conn){
+        $autori = $conn->Execute("SELECT * FROM Autore;");
+        return $autori;
+    }
+
+    public static function nuovo_sorgente(MySQL $conn, $tipo, $uri, $formato, $descrizione, $pubblicazione){
+        $query = "INSERT INTO Sorgente(tipo, uri, formato, descrizione, pubblicazione) VALUES(";
+        $query = $query."'".$tipo."',";
+        $query = $query."'".$uri."',";
+        $query = $query."'".$formato."',";
+        $query = $query."'".$descrizione."');";
+        $query = $query."'".$pubblicazione.");";
+
+        $conn->Execute($query);
+    }
+
+    public static function nuovo_indice(MySQL $conn, $tipo, $numero, $pubblicazione){
+        $query = "INSERT INTO Indice(pubblicazione, tipo, numero) VALUES(";
+        $query = $query."'".$pubblicazione."',";
+        $query = $query."'".$tipo."',";
+        $query = $query."'".$numero."');";
+
+        $conn->Execute($query);
+    }
+
+    public static function nuova_ristampa(MySQL $conn, $pubblicazione, $numero, $data){
+        $query = "INSERT INTO Ristampe(pubblicazione, numero, data_ristampa) VALUES(";
+        $query = $query."'".$pubblicazione."',";
+        $query = $query."'".$numero."',";
+        $query = $query."'".$data."');";
+
+        $conn->Execute($query);
+    }
+
+    public static function nuova_storia(MySQL $conn, $utente, $pubblicazione, $frase){
+        $query = "INSERT INTO Storia(utente, pubblicazione, frase) VALUES(";
+        $query = $query."'".$utente."',";
+        $query = $query."'".$pubblicazione."',";
+        $query = $query."'".$frase."');";
+        $conn->Execute($query);
+    }
+
+    public static function nuova_parola_chiave(MySQL $conn, $parola_chiave, $pubblicazione){
+        $query = "INSERT INTO Keywords(parola, pubblicazione) VALUES(";
+        $query = $query."'".$parola_chiave."',";
+        $query = $query."'".$pubblicazione."');";
+
+        $conn->Execute($query);
+    }
+
+    public static function crea(MySQL $conn, $utente, $isbn, $editore_nome, $lingua=null, $titolo, $pagine=null, $data_pubblicazione, $sorgenti=null, $indici, $ristampe=null, $autori=null, $parole_chiave) {
 
         $editore = $conn->Execute("SELECT * FROM Editore WHERE nome='" . $editore_nome . "';");
-        if(count($editore) == 0) {
-            $editore = $conn->Execute("INSERT INTO Editore(nome) VALUES('".$editore_nome."')");
-        }
-        $editore_id = $editore->id;
 
-        $query = "INSERT INTO PUBBLICAZIONE(isbn, editore, titolo, lingua, data_pubblicazione) VALUES (";
+        if(count($editore) == 0) {
+            $editore = self::nuovo_editore($conn, $editore_nome);
+        }else{
+            $editore = $editore[0];
+        }
+
+        $editore_id = $editore["id"];
+
+        $query = "INSERT INTO Pubblicazione(isbn, editore, titolo, lingua, pagine, data_pubblicazione) VALUES (";
         $query = $query."'".$isbn."',";
         $query = $query."'".$editore_id."',";
         $query = $query."'".$titolo."',";
         $query = $query."'".$lingua."',";
+        $query = $query."'".$pagine."',";
         $query = $query."'".$data_pubblicazione."');";
 
         $pubblicazione = $conn->Execute($query);
 
-        PubblicazioneController::visualizza($conn, $pubblicazione->id);
+        $parole_chiave = explode(',', $parole_chiave);
+
+        foreach($parole_chiave as $parola_chiave){
+            self::nuova_parola_chiave($conn, $parola_chiave, $isbn);
+        }
+
+        foreach($sorgenti as $sorgente){
+            self::nuovo_sorgente($conn, $sorgente["tipo"], $sorgente["uri"], $sorgente["formato"], $sorgente["descrizione"], $isbn);
+        }
+
+        foreach($indici as $indice){
+            self::nuovo_indice($conn, $indice["tipo"], $indice["numero"], $isbn);
+        }
+
+        foreach($ristampe as $ristampa){
+            self::nuova_ristampa($conn, $isbn, $ristampa["numero"], $ristampa["data_ristampa"]);
+        }
+
+        self::nuova_storia($conn, $utente, $isbn, "Inserimento pubblicazione");
+
+        foreach($autori as $autore) {
+            $query = "INSERT INTO Autore_Pubblicazione(autore, pubblicazione) VALUES(";
+            $query = $query.$autore.",";
+            $query = $query."'".$isbn."');";
+            $conn->Execute($query);
+
+
+        }
+
+        return self::visualizza($conn, $isbn);
 
     }
 
-    public function modifica($pub_id) {
+    public function modifica(MySQL $conn, $utente, $isbn, $lingua, $titolo, $pagine, $data_pubblicazione) {
+        $query="UPDATE Pubblicazione SET ";
+        $query=$query." lingua='".$lingua."',";
+        $query=$query."titolo='".$titolo."',";
+        $query=$query."pagine='".$pagine."','";
+        $query=$query."data_pubblicazione=".$data_pubblicazione." ";
+        $query=$query."WHERE isbn=".$isbn;
 
-    }
-
-    public function elimina($pub_id) {
-
+        self::nuova_storia($conn, $utente, $isbn, "Modifica pubblicazione");
+        $query->Execute();
+        return self::visualizza($conn, $isbn);
     }
 
     public function ultime_pubblicazioni($count) {
@@ -55,8 +155,9 @@ class PubblicazioneController
 
     }
 
-    public function log($pub_id) {
-
+    public static function log(MySQL $conn, $pub_id) {
+        $log = $conn->Execute("CALL query15('".$pub_id."');");
+        return $log;
     }
 
     public function con_download() {
