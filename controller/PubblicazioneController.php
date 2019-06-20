@@ -35,7 +35,7 @@ class PubblicazioneController
         $query = $query."'".$tipo."',";
         $query = $query."'".$uri."',";
         $query = $query."'".$formato."',";
-        $query = $query."'".$descrizione."');";
+        $query = $query."'".$descrizione."',";
         $query = $query."'".$pubblicazione.");";
 
         $conn->Execute($query);

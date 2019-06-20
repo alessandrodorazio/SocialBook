@@ -119,7 +119,6 @@
                 </div>
                 <div class="modal-body">
                     <input type="hidden" name="isbn" value="<?php echo $_GET["isbn"]; ?>">
-                    TITOLO NUMERO
                     <div class="row">
                         <div class="col-md-6">
                             <label>Titolo</label>
@@ -182,6 +181,11 @@
                     <th>Numero</th>
                     <th>Titolo</th>
                 </tr>
+                <?php
+                foreach($indici as $indice){
+                    echo "<td>".$indice["numero"]."</td><td>".$indice["titolo"]."</td>";
+                }
+                ?>
             </table>
             <h2 class="table table-borderd">Ristampe</h2>
             <table>
@@ -189,6 +193,11 @@
                     <th>Numero</th>
                     <th>Data</th>
                 </tr>
+                <?php
+                foreach($ristampe as $ristampa){
+                    echo "<td>".$ristampa["numero"]."</td><td>".$ristampa["data"]."</td>"."<td>";
+                }
+                ?>
             </table>
 
 
