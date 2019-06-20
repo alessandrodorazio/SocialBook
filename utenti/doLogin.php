@@ -7,7 +7,8 @@
     require_once(dirname(__FILE__)."/../controller/UtenteController.php");
 
     $utente = UtenteController::login($mysql, $_POST["username"], $_POST["password"]);
+    echo $utente;
     if($utente["username"] == "E") header("Location: http://104.248.91.99/utenti/login.php");
     $_SESSION["username"] = $utente["username"];
     $_SESSION["tipo"] = $utente["tipo"];
-    header("Location: http://104.248.91.99/utenti/show.php?username=".$utente["username"]);
+    //header("Location: http://104.248.91.99/utenti/show.php?username=".$utente["username"]);
