@@ -1,6 +1,6 @@
 <?php
 session_start();
-if(isset($_SESSION["username"])) header("Location: http://104.248.91.99/utenti/show.php?id=".$_SESSION["username"]);
+if(isset($_SESSION["username"]) && $_SESSION["username"]) header("Location: http://104.248.91.99/utenti/show.php?id=".$_SESSION["username"]);
 ?>
 <!doctype html>
 <html lang="en">
