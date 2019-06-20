@@ -11,6 +11,6 @@
     if($utente == "Error") header("Location: http://104.248.91.99/utenti/login.php?error=true");
     else{
         $_SESSION["username"] = $utente["username"];
-        $_SESSION["tipo"] = $utente["tipo"];
+        $_SESSION["tipologia"] = $utente["tipologia"];
         header("Location: http://104.248.91.99/utenti/show.php?username=".$utente["username"]);
     }
