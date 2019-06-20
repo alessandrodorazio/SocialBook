@@ -20,7 +20,7 @@ class UtenteController
         return login($conn, $username, $password);
     }
 
-    public function modifica_tipo(MySQL $conn, $username, $nuovo_tipo) {
+    public static function modifica_tipo(MySQL $conn, $username, $nuovo_tipo) {
         $conn->Execute("CALL query1('".$username."',".$nuovo_tipo.");");
         return self::visualizza($username);
     }
