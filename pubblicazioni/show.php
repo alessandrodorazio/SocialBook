@@ -4,6 +4,7 @@
 
     include(dirname(__FILE__)."/../connect.php");
     require_once(dirname(__FILE__)."/../controller/PubblicazioneController.php");
+    require_once(dirname(__FILE__)."/../controller/RecensioneController.php");
 
     $pubblicazione = PubblicazioneController::visualizza($mysql, $_GET["isbn"]);
     $mysql->close();
@@ -18,7 +19,9 @@
     $mysql->close();
     $mysql->MySQLConnect();
     $ristampe = PubblicazioneController::lista_ristampe($mysql, $_GET["isbn"]);
-
+    $mysql->close();
+    $mysql->MySQLConnect();
+    $recensioni = RecensioneController::per_pubblicazione($mysql, $_GET["isbn"]);
 ?>
 
 <!doctype html>
@@ -233,11 +236,11 @@
             </form>
 
             <h4>Recensioni</h4>
-            <p>
-                A Utente è piaciuta questa pubblicazione e ha scritto: (16/07/2019)
-                <br>
-                Descrizione della recensione
-            </p>
+            <?php foreach($recensioni as $recensione){
+                echo "<p>A ".$recensione["utente"]." è piaciuta questa pubblicazione e ha scritto: (".$recensione["data_inserimento"].")
+            <br>".date("d/m/Y", strtotime($recensione["descrizione"])."</p>";
+            }?>
+
         </div>
     </div>
 
