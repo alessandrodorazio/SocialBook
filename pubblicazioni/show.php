@@ -195,7 +195,7 @@
                 </tr>
                 <?php
                 foreach($ristampe as $ristampa){
-                    echo "<td>".$ristampa["numero"]."</td><td>".$ristampa["data"]."</td>"."<td>";
+                    echo "<td>".$ristampa["numero"]."</td><td>".$ristampa["data_ristampa"]."</td>"."<td>";
                 }
                 ?>
             </table>
