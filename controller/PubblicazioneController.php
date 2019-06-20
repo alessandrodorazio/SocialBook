@@ -10,7 +10,7 @@ class PubblicazioneController
     }
 
     public static function visualizza(MYSQL $conn, $isbn) {
-        $pubblicazione = $conn->Execute("SELECT * FROM Pubblicazione WHERE isbn =".$isbn);
+        $pubblicazione = $conn->Execute("SELECT * FROM Pubblicazione WHERE isbn ='".$isbn."';");
         return $pubblicazione[0];
     }
 
@@ -36,7 +36,7 @@ class PubblicazioneController
         $query = $query."'".$uri."',";
         $query = $query."'".$formato."',";
         $query = $query."'".$descrizione."',";
-        $query = $query."'".$pubblicazione.");";
+        $query = $query."'".$pubblicazione."');";
         return $query;
         $conn->Execute($query);
         return self::index($conn);
