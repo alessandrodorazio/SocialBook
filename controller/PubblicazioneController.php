@@ -10,7 +10,7 @@ class PubblicazioneController
     }
 
     public static function visualizza(MYSQL $conn, $isbn) {
-        $pubblicazione = $conn->Execute("SELECT * FROM Pubblicazione WHERE isbn ='".$isbn."';");
+        $pubblicazione = $conn->Execute("SELECT p.*, concat(parola) AS parole_chiave FROM Pubblicazione p, Keywords k WHERE k.pubblicazione='".$isbn."' isbn ='".$isbn."';");
         return $pubblicazione[0];
     }
 
