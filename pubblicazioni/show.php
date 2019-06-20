@@ -151,7 +151,7 @@
         Nuova ristampa
     </button>
 
-    <a class="btn btn-warning" href="edit.php?isbn= <?php echo $_GET["isbn"]; ?>">
+    <a class="btn btn-warning" href="edit.php?isbn=<?php echo $_GET["isbn"]; ?>">
         Modifica
     </a>
     <div class="row">

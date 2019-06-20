@@ -150,7 +150,7 @@ class PubblicazioneController
         $query=$query."titolo='".$titolo."',";
         $query=$query."pagine='".$pagine."','";
         $query=$query."data_pubblicazione=".$data_pubblicazione." ";
-        $query=$query."WHERE isbn=".$isbn;
+        $query=$query."WHERE isbn='".$isbn."';";
 
         self::nuova_storia($conn, $utente, $isbn, "Modifica pubblicazione");
         $query->Execute();
