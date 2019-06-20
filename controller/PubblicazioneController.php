@@ -20,6 +20,11 @@ class PubblicazioneController
         return self::index($conn);
     }
 
+    public static function lista_editori(MySQL $conn){
+        $editori = $conn->Execute("SELECT * FROM Editore;");
+        return $editori;
+    }
+
     public static function nuovo_autore(MySQL $conn, $nome, $cognome) {
         $autore = $conn->Execute("INSERT INTO Autore(nome, cognome) VALUES('".$nome."', '".$cognome."')");
         return self::index($conn);

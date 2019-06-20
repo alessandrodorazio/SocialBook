@@ -6,6 +6,9 @@ include(dirname(__FILE__)."/../connect.php");
 require_once(dirname(__FILE__)."/../controller/PubblicazioneController.php");
 
 $autori = PubblicazioneController::lista_autori($mysql);
+$mysql->close();
+$mysql->MySQLConnect();
+$editori = PubblicazioneController::lista_editori($mysql);
 
 ?>
 
@@ -64,7 +67,9 @@ $autori = PubblicazioneController::lista_autori($mysql);
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="editore">Nome editore</label>
-                    <input type="text" name="editore" id="editore" class="form-control">
+                    <select name="editore" id="editore">
+                        <?php foreach($editori as $editore){ echo "<option value='".$editore["id"]."'>".$editore["nome"]."</option>"; } ?>
+                    </select>
                 </div>
             </div>
             <div class="col-md-6">
