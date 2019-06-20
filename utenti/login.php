@@ -1,6 +1,6 @@
 <?php
 session_start();
-if(isset($_SESSION["username"]) && $_SESSION["username"]!="E") header("Location: http://104.248.91.99/utenti/show.php?username=".$_SESSION["username"]);
+if(isset($_SESSION["username"])) header("Location: http://104.248.91.99/utenti/show.php?username=".$_SESSION["username"]);
 ?>
 <!doctype html>
 <html lang="en">
@@ -98,6 +98,7 @@ if(isset($_SESSION["username"]) && $_SESSION["username"]!="E") header("Location:
 <div class="main">
     <div class="col-md-6 col-sm-12">
         <div class="login-form">
+            <?php if($_GET["error"]=="true") echo "Credenziali errate"; ?>
             <form action="doLogin.php" method="post">
                 <div class="form-group">
                     <label>Username</label>

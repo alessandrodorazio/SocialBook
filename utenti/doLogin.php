@@ -8,7 +8,7 @@
 
     $utente = UtenteController::login($mysql, $_POST["username"], $_POST["password"]);
     echo $utente;
-    if($utente == "E") header("Location: http://104.248.91.99/utenti/login.php");
+    if($utente == "Error") header("Location: http://104.248.91.99/utenti/login.php?error=true");
     else{
         $_SESSION["username"] = $utente["username"];
         $_SESSION["tipo"] = $utente["tipo"];
