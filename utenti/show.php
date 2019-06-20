@@ -29,11 +29,11 @@ $recensioni = UtenteController::recensioni_utente($mysql, $_GET["username"]);
     <?php include(dirname(__FILE__) . '/../layout/navbar.php'); ?>
     <div class="container pt-3">
         <?php
-            if($_SESSION["tipologia"]==2)
+            if($_SESSION["tipologia"]==2 && $utente["tipologia"] < 2)
                 if($utente["tipologia"]==1)
-                    echo "<a href='cambia_stato.php?username=".$_GET["username"]."&tipo=0' class='btn btn-primary'>Rendi passivo</a><a href='cambia_stato.php?username=".$_GET["username"]."&tipo=2' class='btn btn-primary'>Rendi moderatore</a>";
+                    echo "<a href='cambia_stato.php?username=".$_GET["username"]."&tipo=0' class='btn btn-primary'>Rendi passivo</a><a href='cambia_stato.php?username=".$_GET["username"]."&tipo=2' class='btn btn-primary ml-2'>Rendi moderatore</a>";
                 else
-                    echo "<a href='cambia_stato.php?username=".$_GET["username"]."&tipo=0' class='btn btn-primary'>Rendi passivo</a><a href='cambia_stato.php?username=".$_GET["username"]."&tipo=2' class='btn btn-primary'>Rendi moderatore</a>";
+                    echo "<a href='cambia_stato.php?username=".$_GET["username"]."&tipo=1' class='btn btn-primary'>Rendi attivo</a><a href='cambia_stato.php?username=".$_GET["username"]."&tipo=2' class='btn btn-primary ml-2'>Rendi moderatore</a>";
         ?>
 
         <h1>Dettagli utente</h1>

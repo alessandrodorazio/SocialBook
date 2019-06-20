@@ -144,7 +144,7 @@ class PubblicazioneController
 
     }
 
-    public function modifica(MySQL $conn, $utente, $isbn, $lingua, $titolo, $pagine, $data_pubblicazione) {
+    public static function modifica(MySQL $conn, $utente, $isbn, $lingua, $titolo, $pagine, $data_pubblicazione) {
         $query="UPDATE Pubblicazione SET ";
         $query=$query." lingua='".$lingua."',";
         $query=$query."titolo='".$titolo."',";

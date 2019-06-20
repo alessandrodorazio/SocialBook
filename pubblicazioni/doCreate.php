@@ -1,5 +1,4 @@
 <?php
-    echo $_POST["autori"];
     include(dirname(__FILE__)."/../connect.php");
     require_once(dirname(__FILE__)."/../controller/PubblicazioneController.php");
     session_start();

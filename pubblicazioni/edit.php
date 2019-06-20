@@ -4,12 +4,7 @@ ini_set('display_errors', 1);
 
 include(dirname(__FILE__)."/../connect.php");
 require_once(dirname(__FILE__)."/../controller/PubblicazioneController.php");
-
-$autori = PubblicazioneController::lista_autori($mysql);
-$mysql->close();
-$mysql->MySQLConnect();
-$editori = PubblicazioneController::lista_editori($mysql);
-
+$pubblicazione = PubblicazioneController::visualizza($mysql, $_GET["isbn"]);
 ?>
 
 <!doctype html>
@@ -25,63 +20,41 @@ $editori = PubblicazioneController::lista_editori($mysql);
 <body class="bg-light">
 <?php include(dirname(__FILE__) . '/../layout/navbar.php'); ?>
 <div class="container pt-3">
-    <h1>Inserisci pubblicazione</h1>
+    <h1>Modifica pubblicazione</h1>
     <form action="doCreate.php" method="post">
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="titolo">Titolo</label>
-                    <input type="text" name="titolo" id="titolo" class="form-control">
+                    <input type="text" name="titolo" id="titolo" value="<?php echo $pubblicazione["titolo"] ?>" class="form-control">
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="isbn">ISBN</label>
-                    <input type="text" name="isbn" id="isbn" class="form-control">
+                    <input type="text" name="isbn" id="isbn" value="<?php echo $pubblicazione["isbn"] ?>" class="form-control">
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="form-group">
                     <label for="lingua">Lingua</label>
-                    <input type="text" name="lingua" id="lingua" class="form-control">
+                    <input type="text" name="lingua" id="lingua" value="<?php echo $pubblicazione["lingua"] ?>" class="form-control">
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="form-group">
                     <label for="pagine">Numero pagine</label>
-                    <input type="text" name="pagine" id="pagine" class="form-control">
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="parole_chiave">Parole chiave (separate da una virgola)</label>
-                    <input type="text" name="parole_chiave" id="parole_chiave" class="form-control">
+                    <input type="text" name="pagine" id="pagine" value="<?php echo $pubblicazione["pagine"] ?>" class="form-control">
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="data_pubblicazione">Data di pubblicazione</label>
-                    <input type="date" name="data_pubblicazione" id="data_pubblicazione" class="form-control">
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="editore">Nome editore</label>
-                    <select name="editore" id="editore">
-                        <?php foreach($editori as $editore){ echo "<option value='".$editore["id"]."'>".$editore["nome"]."</option>"; } ?>
-                    </select>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="autori">Autori</label>
-                    <select name="autori[]" id="autori" class="form-control" multiple>
-                        <?php foreach($autori as $autore){ echo "<option value='".$autore["id"]."'>".$autore["nome"]." ".$autore["cognome"]."</option>"; } ?>
-                    </select>
+                    <input type="date" name="data_pubblicazione" id="data_pubblicazione" value="<?php echo $pubblicazione["data_pubblicazione"] ?>" class="form-control">
                 </div>
             </div>
         </div>
-        <button type="submit" class="btn btn-success btn-lg float-right">Inserisci</button>
+        <button type="submit" class="btn btn-success btn-lg float-right">Salva</button>
     </form>
 </div>
 
@@ -91,4 +64,5 @@ $editori = PubblicazioneController::lista_editori($mysql);
 
 </body>
 </html>
+
 

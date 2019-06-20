@@ -150,6 +150,10 @@
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#nuova_ristampa">
         Nuova ristampa
     </button>
+
+    <a class="btn btn-warning" href="edit.php?isbn= <?php echo $_GET["isbn"]; ?>">
+        Modifica
+    </a>
     <div class="row">
         <div class="col-md-6">
             <h1>Dettagli pubblicazione</h1>
@@ -159,7 +163,8 @@
             <p>Lingua: <?php echo $pubblicazione["lingua"]; ?></p>
             <p>Pagine: <?php echo $pubblicazione["pagine"]; ?></p>
             <p>Data pubblicazione: <?php echo date("d/m/Y", strtotime($pubblicazione["data_pubblicazione"])); ?></p>
-            <p>Parole chiave</p>
+            <p>Parole chiave: <?php echo $pubblicazione["parole_chiave"]; ?></p>
+            <p>Numero like: <?php echo $pubblicazione["n_like"]; ?></p>
             <h2>Sorgenti</h2>
             <table class="table table-bordered">
                 <tr>
