@@ -225,8 +225,9 @@
             </table>
 
             <h4 class="mt-4">Recensisci</h4>
-            <form action="#">
-                Mi piace <input type="checkbox" name="like">
+            <form action="nuova_recensione.php" method="post">
+                <input type="hidden" name="isbn" value="<?php echo $_GET["isbn"]; ?>">
+                Mi piace <input type="checkbox" name="mi_piace">
                 <textarea name="descrizione" id="" cols="30" rows="10" placeholder="Lascia una recensione" class="form-control"></textarea>
                 <button class="btn btn-success float-right mt-2">Salva</button>
             </form>
