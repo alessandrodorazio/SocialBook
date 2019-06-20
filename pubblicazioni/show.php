@@ -154,9 +154,14 @@
         Nuova ristampa
     </button>
 
+    <a class="btn btn-primary" href="index.php?t=18&isbn=<?php echo $_GET["isbn"]; ?>">
+        Stessi autori
+    </a>
+
     <a class="btn btn-warning" href="edit.php?isbn=<?php echo $_GET["isbn"]; ?>">
         Modifica
     </a>
+
     <div class="row">
         <div class="col-md-6">
             <h1>Dettagli pubblicazione</h1>
@@ -167,7 +172,6 @@
             <p>Pagine: <?php echo $pubblicazione["pagine"]; ?></p>
             <p>Data pubblicazione: <?php echo date("d/m/Y", strtotime($pubblicazione["data_pubblicazione"])); ?></p>
             <p>Parole chiave: <?php echo $pubblicazione["parole_chiave"]; ?></p>
-            <p>Numero like: <?php echo $pubblicazione["n_like"]; ?></p>
             <h2>Sorgenti</h2>
             <table class="table table-bordered">
                 <tr>
@@ -178,7 +182,7 @@
                 </tr>
                 <?php
                 foreach($sorgenti as $sorgente){
-                    echo "<td>".$sorgente["tipo"]."</td><td>".$sorgente["uri"]."</td>"."<td>".$sorgente["formato"]."</td><td>".$sorgente["descrizione"]."</td>";
+                    echo "<tr><td>".$sorgente["tipo"]."</td><td>".$sorgente["uri"]."</td>"."<td>".$sorgente["formato"]."</td><td>".$sorgente["descrizione"]."</td></tr>";
                 }
                 ?>
             </table>
@@ -191,7 +195,7 @@
                 </tr>
                 <?php
                 foreach($indici as $indice){
-                    echo "<td>".$indice["numero"]."</td><td>".$indice["titolo"]."</td>";
+                    echo "<tr><td>".$indice["numero"]."</td><td>".$indice["titolo"]."</td></tr>";
                 }
                 ?>
             </table>
@@ -203,7 +207,7 @@
                 </tr>
                 <?php
                 foreach($ristampe as $ristampa){
-                    echo "<td>".$ristampa["numero"]."</td><td>".$ristampa["data_ristampa"]."</td>"."<td>";
+                    echo "<tr><td>".$ristampa["numero"]."</td><td>".$ristampa["data_ristampa"]."</td>"."<td></td>";
                 }
                 ?>
             </table>
@@ -221,13 +225,13 @@
                 <?php foreach($log as $l){
                    echo "<tr>
                             <td>".$l["frase"]."</td>
-                            <td>".$l["username"]."</td>
+                            <td>".$l["utente"]."</td>
                             <td>".date("d/m/Y H:m", strtotime($l["data_modifica"]))."</td>
                         </tr>";
                 }?>
             </table>
 
-            <h4 class="mt-4">Recensisci</h4>
+            <h4 class="mt-5">Recensisci</h4>
             <form action="nuova_recensione.php" method="post">
                 <input type="hidden" name="isbn" value="<?php echo $_GET["isbn"]; ?>">
                 Mi piace <input type="checkbox" name="mi_piace">
@@ -237,8 +241,9 @@
 
             <h4>Recensioni</h4>
             <?php foreach($recensioni as $recensione){
-                echo "<p>A ".$recensione["utente"]." è piaciuta questa pubblicazione e ha scritto: (".$recensione["data_inserimento"].")
-            <br>".date("d/m/Y", strtotime($recensione["descrizione"])."</p>";
+                $lik = ($recensione["mi_piace"]==1)?" non":"";
+                echo "<p>A ".$recensione["utente"].$lik." è piaciuta questa pubblicazione e ha scritto: (".date("d/m/Y", strtotime($recensione["data_inserimento"])).")
+            <br>".$recensione["descrizione"]."</p>";
             }?>
 
         </div>

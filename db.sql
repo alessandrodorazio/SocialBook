@@ -137,10 +137,10 @@ CREATE TABLE Recensione (
 
     utente char(32),
     pubblicazione char(13),
-    mi_piace bit DEFAULT FALSE,
+    mi_piace int,
     descrizione char(255) NOT NULL,
     data_inserimento timestamp DEFAULT CURRENT_TIMESTAMP,
-    approvata bit DEFAULT 0,
+    approvata tinyint(1) DEFAULT 0,
 
     PRIMARY KEY(utente, pubblicazione),
     FOREIGN KEY(Utente) REFERENCES Utente(username),

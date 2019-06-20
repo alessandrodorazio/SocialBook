@@ -5,7 +5,21 @@ ini_set('display_errors', 1);
 include(dirname(__FILE__)."/../connect.php");
 require_once(dirname(__FILE__)."/../controller/PubblicazioneController.php");
 
-$pubblicazioni = PubblicazioneController::index($mysql);
+if(! isset($_GET["t"]))
+    $pubblicazioni = PubblicazioneController::index($mysql);
+
+if($_GET["t"]==2)
+    $pubblicazioni = PubblicazioneController::ultime_pubblicazioni($mysql);
+
+if($_GET["t"]==3) //RECENTE
+    $pubblicazioni = PubblicazioneController::aggiornate_recente($mysql);
+
+if($_GET["t"]==16)
+    $pubblicazioni = PubblicazioneController::con_download($mysql);
+
+if($_GET["t"]==18)
+    $pubblicazioni = PubblicazioneController::stessi_autori($mysql, $_GET["isbn"]);
+
 
 ?>
 

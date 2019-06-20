@@ -42,7 +42,6 @@ class PubblicazioneController
         $query = $query."'".$formato."',";
         $query = $query."'".$descrizione."',";
         $query = $query."'".$pubblicazione."');";
-        return $query;
         $conn->Execute($query);
         return self::index($conn);
     }
@@ -157,16 +156,19 @@ class PubblicazioneController
         return self::visualizza($conn, $isbn);
     }
 
-    public function ultime_pubblicazioni($count) {
-
+    public static function ultime_pubblicazioni(MySQL $conn) {
+        $pubblicazioni = $conn->Execute("CALL query2();");
+        return $pubblicazioni;
     }
 
-    public function aggiornate_recente() {
-
+    public static function aggiornate_recente(MySQL $conn) {
+        $pubblicazioni = $conn->Execute("CALL query3();");
+        return $pubblicazioni;
     }
 
-    public function cerca() {
-
+    public static function cerca(MySQL $conn, $isbn, $titolo, $autore, $parola_chiave) {
+        $risultati = $conn->Execute("CALL query8('".$isbn."','".$titolo."','".$autore."','".$parola_chiave."');");
+        return $risultati;
     }
 
     public static function log(MySQL $conn, $pub_id) {
@@ -174,16 +176,19 @@ class PubblicazioneController
         return $log;
     }
 
-    public function con_download() {
-
+    public static function con_download(MySQL $conn) {
+        $pubblicazioni = $conn->Execute("CALL query16();");
+        return $pubblicazioni;
     }
 
-    public function catalogo_ultima_ristampa() {
-
+    public static function catalogo_ultima_ristampa(MySQL $conn) {
+        $pubblicazioni = $conn->Execute("CALL query17();");
+        return $pubblicazioni;
     }
 
-    public function stessi_autori($pub_id) {
-
+    public static function stessi_autori(MySQL $conn, $pub_id) {
+        $pubblicazioni = $conn->Execute("CALL query18('.$pub_id.');");
+        return $pubblicazioni;
     }
 
 }

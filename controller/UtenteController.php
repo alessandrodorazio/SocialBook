@@ -15,23 +15,15 @@ class UtenteController
     }
 
     public static function crea(MySQL $conn, $username, $password) {
-        echo "CALL Registrazione('".$username."','".$password."');";
         $conn->Execute("CALL Registrazione('".$username."','".$password."');");
-        return login($conn, $username, $password);
+        return self::login($conn, $username, $password);
     }
 
     public static function modifica_tipo(MySQL $conn, $username, $nuovo_tipo) {
         $conn->Execute("CALL query1('".$username."',".$nuovo_tipo.");");
-        return self::visualizza($username);
+        return self::visualizza($conn, $username);
     }
 
-    public function elimina($user_id) {
-
-    }
-
-    public function registrazione($email, $password) {
-
-    }
 
     public static function login(MySQL $conn, $username, $password) {
         $utente = $conn->Execute("CALL Accesso('".$username."','".$password."');");
@@ -39,8 +31,9 @@ class UtenteController
         return $utente[0];
     }
 
-    public function piu_collaborativi() {
-
+    public static function piu_collaborativi(MySQL $conn) {
+        $utenti = $conn->Execute("CALL 4();");
+        return $utenti;
     }
 
     public static function recensioni_utente(MySQL $conn, $username) {

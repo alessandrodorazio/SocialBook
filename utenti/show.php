@@ -57,7 +57,7 @@ $recensioni = UtenteController::recensioni_utente($mysql, $_GET["username"]);
                     </tr>
                     <?php
                         foreach($recensioni as $recensione)
-                            echo "<td>".$recensione["pubblicazione"]."</td><td>".$recensione["mi_piace"]."</td><td>".$recensione["descrizione"]."</td><td>".$recensione["data"]."</td>"
+                            echo "<tr><td>".$recensione["pubblicazione"]."</td><td>".$recensione["mi_piace"]."</td><td>".$recensione["descrizione"]."</td><td>".$recensione["data_inserimento"]."</td></tr>"
                     ?>
                 </table>
             </div>

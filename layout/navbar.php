@@ -16,10 +16,21 @@
                 <div class="dropdown-menu" aria-labelledby="pubblicazioniDropdown">
                     <a class="dropdown-item" href="http://104.248.91.99/pubblicazioni/index.php">Lista</a>
                     <a class="dropdown-item" href="http://104.248.91.99/pubblicazioni/create.php">Aggiungi</a>
+                    <a class="dropdown-item" href="http://104.248.91.99/pubblicazioni/index.php?t=2">Ultime pubblicazioni</a>
+                    <a class="dropdown-item" href="http://104.248.91.99/pubblicazioni/index.php?t=3">Aggiornate di recente</a>
+                    <a class="dropdown-item" href="http://104.248.91.99/pubblicazioni/index.php?t=16">Con download</a>
+                    <a class="dropdown-item" href="http://104.248.91.99/pubblicazioni/search.php">Cerca</a>
+
                 </div>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="http://104.248.91.99/utenti/index.php">Utenti</a>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="utentiDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Utenti
+                </a>
+                <div class="dropdown-menu" aria-labelledby="utentiDropdown">
+                    <a class="nav-link" href="http://104.248.91.99/utenti/index.php">Lista</a>
+                    <a class="dropdown-item" href="http://104.248.91.99/utenti/index.php?t=4">Più collaborativi</a>
+                </div>
             </li>
             <?php if(isset($_SESSION['username'])) {?>
                 <li class="nav-item">
@@ -28,6 +39,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="http://104.248.91.99/utenti/doLogout.php">Esci</a>
                 </li>
+                <?php if($_SESSION["tipologia"] == 2) {?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="http://104.248.91.99/recensioni/daApprovare.php">Recensioni da approvare</a>
+                    </li>
+                <?php } ?>
             <?php } else { ?>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="loginDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

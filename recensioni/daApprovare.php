@@ -1,11 +1,11 @@
 <?php
-session_start();
-include(dirname(__FILE__)."/../connect.php");
-require_once(dirname(__FILE__)."/../controller/UtenteController.php");
-if(! isset($_SESSION["username"])) header("Location: http://104.248.91.99/utenti/login.php");
+error_reporting( E_ALL );
+ini_set('display_errors', 1);
 
-if(! isset($_GET["t"])) $utenti = UtenteController::index($mysql);
-if($_GET["t"]=="4") $utenti = UtenteController::piu_collaborativi($mysql);
+include(dirname(__FILE__)."/../connect.php");
+require_once(dirname(__FILE__)."/../controller/RecensioneController.php");
+
+$recensioni = RecensioneController::in_attesa($mysql);
 
 ?>
 
@@ -22,14 +22,20 @@ if($_GET["t"]=="4") $utenti = UtenteController::piu_collaborativi($mysql);
     <body class="bg-light">
     <?php include(dirname(__FILE__) . '/../layout/navbar.php'); ?>
     <div class="container pt-3">
-        <h1>Lista utenti</h1>
-        <div class="row">
-            <?php foreach($utenti as $utente)
-                echo    "<div class=\"col-md-4\">
-                            <p><a href='show.php?username=".$utente["username"]."'>". $utente['username'] ."</a></p>
-                        </div>"
-            ?>
-        </div>
+        <h1>Approva recensioni</h1>
+
+        <table class="table table-bordered">
+            <tr>
+                <th>Utente</th>
+                <th>Pubblicazione</th>
+                <th>Descrizione</th>
+                <th>Data</th>
+                <th>Azioni</th>
+            </tr>
+            <?php foreach($recensioni as $recensione){
+                echo"<tr><td>".$recensione["utente"]."</td><td>".$recensione["pubblicazione"]."</td><td>".$recensione["descrizione"]."</td><td>".$recensione["data_inserimento"]."</td><td><a class='btn btn-small btn-primary' href='approva.php?utente=".$recensione["utente"]."&isbn=".$recensione["pubblicazione"]."'>Approva</a></td></tr>";
+            }?>
+        </table>
 
     </div>
 
