@@ -31,10 +31,13 @@ $autori = PubblicazioneController::lista_autori($mysql);
             <div class="col-md-6"><input type="text" name="isbn" placeholder="ISBN" class="form-control"></div>
             <div class="col-md-6"><input type="text" name="titolo" placeholder="Titolo" class="form-control"></div>
             <div class="col-md-6 mt-1"><select name="autore" id="autore" class="form-control">
+                    <option value="0" selected>Seleziona...</option>
                     <?php foreach($autori as $autore){ echo "<option value='".$autore["id"]."'>".$autore["nome"]." ".$autore["cognome"]."</option>"; } ?>
                 </select></div>
             <div class="col-md-6 mt-1"><input type="text" name="parola_chiave" placeholder="Parola chiave" class="form-contol"></div>
-            <button type="submit" class="btn btn-primary float-right">Cerca</button>
+            <div class="float-right">
+                <button type="submit" class="btn btn-primary float-right">Cerca</button>
+            </div>
         </div>
     </form>
 

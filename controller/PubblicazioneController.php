@@ -10,7 +10,7 @@ class PubblicazioneController
     }
 
     public static function visualizza(MYSQL $conn, $isbn) {
-        $pubblicazione = $conn->Execute("SELECT p.*, concat(parola) AS parole_chiave FROM Pubblicazione p, Keywords k WHERE k.pubblicazione='".$isbn."' OR isbn ='".$isbn."';");
+        $pubblicazione = $conn->Execute("SELECT p.*, group_concat(parola) AS parole_chiave FROM Pubblicazione p, Keywords k WHERE k.pubblicazione='".$isbn."' OR isbn ='".$isbn."' GROUP BY isbn;");
         return $pubblicazione[0];
     }
 
@@ -33,6 +33,11 @@ class PubblicazioneController
     public static function lista_autori(MySQL $conn){
         $autori = $conn->Execute("SELECT * FROM Autore;");
         return $autori;
+    }
+
+    public static function lista_autori_pub(MySQL $conn, $isbn){
+        $autori = $conn->Execute("SELECT group_concat(nome, cognome) AS nome_cognome FROM Autore a, Autore_Pubblicazione ap WHERE pubblicazione='".$isbn."' GROUP BY pubblicazione;");
+        return $autori[0];
     }
 
     public static function nuovo_sorgente(MySQL $conn, $tipo, $uri, $formato, $descrizione, $pubblicazione){
@@ -141,6 +146,11 @@ class PubblicazioneController
 
         return self::visualizza($conn, $isbn);
 
+    }
+
+    public static function num_like(MySQL $conn, $isbn) {
+        $num = $conn->Execute("SELECT COUNT(*) AS mi_piace FROM Recensione WHERE mi_piace=1 AND isbn='".$isbn."'");
+        return $num[0]["mi_piace"];
     }
 
     public static function modifica(MySQL $conn, $utente, $isbn, $lingua, $titolo, $pagine, $data_pubblicazione) {

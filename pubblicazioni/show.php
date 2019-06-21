@@ -21,7 +21,13 @@
     $ristampe = PubblicazioneController::lista_ristampe($mysql, $_GET["isbn"]);
     $mysql->close();
     $mysql->MySQLConnect();
+    $autori = PubblicazioneController::lista_autori_pub($mysql, $_GET["isbn"]);
+    $mysql->close();
+    $mysql->MySQLConnect();
     $recensioni = RecensioneController::per_pubblicazione($mysql, $_GET["isbn"]);
+    $mysql->close();
+    $mysql->MySQLConnect();
+    $num_like = RecensioneController::num_like($mysql, $_GET["isbn"]);
 ?>
 
 <!doctype html>
@@ -168,6 +174,8 @@
             <p>Titolo: <?php echo $pubblicazione["titolo"]; ?></p>
             <p>ISBN: <?php echo $pubblicazione["isbn"]; ?></p>
             <p>Editore: <?php echo $pubblicazione["editore"]; ?></p>
+            <p>Numero like: <?php echo $num_like; ?></p>
+            <p>Autori: <?php echo $autori["nome_cognome"]; ?></p>
             <p>Lingua: <?php echo $pubblicazione["lingua"]; ?></p>
             <p>Pagine: <?php echo $pubblicazione["pagine"]; ?></p>
             <p>Data pubblicazione: <?php echo date("d/m/Y", strtotime($pubblicazione["data_pubblicazione"])); ?></p>
@@ -241,7 +249,7 @@
 
             <h4>Recensioni</h4>
             <?php foreach($recensioni as $recensione){
-                $lik = ($recensione["mi_piace"]==1)?" non":"";
+                $lik = ($recensione["mi_piace"]==0)?" non":"";
                 echo "<p>A ".$recensione["utente"].$lik." è piaciuta questa pubblicazione e ha scritto: (".date("d/m/Y", strtotime($recensione["data_inserimento"])).")
             <br>".$recensione["descrizione"]."</p>";
             }?>

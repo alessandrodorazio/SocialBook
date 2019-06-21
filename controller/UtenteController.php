@@ -32,7 +32,7 @@ class UtenteController
     }
 
     public static function piu_collaborativi(MySQL $conn) {
-        $utenti = $conn->Execute("CALL 4();");
+        $utenti = $conn->Execute("CALL query4();");
         return $utenti;
     }
 
