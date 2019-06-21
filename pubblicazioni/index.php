@@ -5,20 +5,37 @@ ini_set('display_errors', 1);
 include(dirname(__FILE__)."/../connect.php");
 require_once(dirname(__FILE__)."/../controller/PubblicazioneController.php");
 
-if(! isset($_GET["t"]))
-    $pubblicazioni = PubblicazioneController::index($mysql);
 
-if($_GET["t"]==2)
-    $pubblicazioni = PubblicazioneController::ultime_pubblicazioni($mysql);
+if(! isset($_GET["t"])){
+    if(isset($_GET["isbn"])){
+        $titolo = "Pubblicazioni con lo stesso autore";
+        $pubblicazioni = PubblicazioneController::stessi_autori($mysql, $_GET["isbn"]);
+    } else {
+        $titolo = "Lista pubblicazioni";
+        $pubblicazioni = PubblicazioneController::index($mysql);
+    }
+} else {
+    if(isset($_GET["t"]) && $_GET["t"]==2){
+        $titolo = "Ultime pubblicazioni";
+        $pubblicazioni = PubblicazioneController::ultime_pubblicazioni($mysql);
+    }
 
-if($_GET["t"]==3) //RECENTE
-    $pubblicazioni = PubblicazioneController::aggiornate_recente($mysql);
 
-if($_GET["t"]==16)
-    $pubblicazioni = PubblicazioneController::con_download($mysql);
+    if(isset($_GET["t"]) && $_GET["t"]==3) {
+        $titolo = "Pubblicazioni aggiornate di recente";
+        $pubblicazioni = PubblicazioneController::aggiornate_recente($mysql);
+    }
 
-if($_GET["t"]==18)
-    $pubblicazioni = PubblicazioneController::stessi_autori($mysql, $_GET["isbn"]);
+    if(isset($_GET["t"]) && $_GET["t"]==16){
+        $titolo = "Pubblicazioni con download";
+        $pubblicazioni = PubblicazioneController::con_download($mysql);
+    }
+
+}
+
+
+
+
 
 
 ?>
@@ -105,21 +122,26 @@ if($_GET["t"]==18)
         Nuovo autore
     </button>
 
-    <h1>Lista pubblicazioni</h1>
+    <h1><?php echo $titolo; ?></h1>
     <table class="table table-bordered">
         <tr>
             <th>Titolo</th>
-            <th>Autori</th>
-            <th>Editore</th>
+            <?php if(!isset($_GET["isbn"])) echo "<th>Autori</th><th>Editore</th>"; ?>
             <th>Anno di pubblicazione</th>
         </tr>
         <?php foreach($pubblicazioni as $pubblicazione) {
-            echo "<tr>
-                <td><a href='show.php?isbn=".$pubblicazione["isbn"]."'>".$pubblicazione["titolo"]."</a></td>
-                <td>". $pubblicazione["autori"] ."</td>
-                <td>". $pubblicazione["editore"]."</td>
-                <td>". date("d/m/Y", strtotime($pubblicazione["data_pubblicazione"]))."</td>
-            </tr>";
+            if (!isset($_GET["isbn"]))
+                echo "<tr>
+                    <td><a href='show.php?isbn=".$pubblicazione["isbn"]."'>".$pubblicazione["titolo"]."</a></td>
+                    <td>". $pubblicazione["autori"] ."</td>
+                    <td>". $pubblicazione["editore"]."</td>
+                    <td>". date("d/m/Y", strtotime($pubblicazione["data_pubblicazione"]))."</td>
+                </tr>";
+            else
+                echo "<tr>
+                    <td><a href='show.php?isbn=".$pubblicazione["isbn"]."'>".$pubblicazione["titolo"]."</a></td>
+                    <td>". date("d/m/Y", strtotime($pubblicazione["data_pubblicazione"]))."</td>
+                </tr>";
 
         }?>
 

@@ -149,7 +149,7 @@ class PubblicazioneController
     }
 
     public static function num_like(MySQL $conn, $isbn) {
-        $num = $conn->Execute("SELECT COUNT(*) AS mi_piace FROM Recensione WHERE mi_piace=1 AND isbn='".$isbn."'");
+        $num = $conn->Execute("SELECT COUNT(*) AS mi_piace FROM Recensione WHERE mi_piace=1 AND pubblicazione='".$isbn."'");
         return $num[0]["mi_piace"];
     }
 
@@ -197,7 +197,7 @@ class PubblicazioneController
     }
 
     public static function stessi_autori(MySQL $conn, $pub_id) {
-        $pubblicazioni = $conn->Execute("CALL query18('.$pub_id.');");
+        $pubblicazioni = $conn->Execute("CALL query18('".$pub_id."');");
         return $pubblicazioni;
     }
 

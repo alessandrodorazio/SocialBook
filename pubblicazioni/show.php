@@ -27,7 +27,7 @@
     $recensioni = RecensioneController::per_pubblicazione($mysql, $_GET["isbn"]);
     $mysql->close();
     $mysql->MySQLConnect();
-    $num_like = RecensioneController::num_like($mysql, $_GET["isbn"]);
+    $num_like = PubblicazioneController::num_like($mysql, $_GET["isbn"]);
 ?>
 
 <!doctype html>
@@ -160,7 +160,7 @@
         Nuova ristampa
     </button>
 
-    <a class="btn btn-primary" href="index.php?t=18&isbn=<?php echo $_GET["isbn"]; ?>">
+    <a class="btn btn-primary" href="index.php?isbn=<?php echo $_GET["isbn"]; ?>">
         Stessi autori
     </a>
 
