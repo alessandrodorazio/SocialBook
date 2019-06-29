@@ -31,43 +31,43 @@ $editori = PubblicazioneController::lista_editori($mysql);
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="titolo">Titolo</label>
-                    <input type="text" name="titolo" id="titolo" class="form-control">
+                    <input type="text" name="titolo" id="titolo" class="form-control" required>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="isbn">ISBN</label>
-                    <input type="text" name="isbn" id="isbn" class="form-control">
+                    <input type="text" name="isbn" id="isbn" class="form-control" required>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="form-group">
                     <label for="lingua">Lingua</label>
-                    <input type="text" name="lingua" id="lingua" class="form-control">
+                    <input type="text" name="lingua" id="lingua" class="form-control" required>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="form-group">
                     <label for="pagine">Numero pagine</label>
-                    <input type="text" name="pagine" id="pagine" class="form-control">
+                    <input type="text" name="pagine" id="pagine" class="form-control" required>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="parole_chiave">Parole chiave (separate da una virgola)</label>
-                    <input type="text" name="parole_chiave" id="parole_chiave" class="form-control">
+                    <input type="text" name="parole_chiave" id="parole_chiave" class="form-control" required>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="data_pubblicazione">Data di pubblicazione</label>
-                    <input type="date" name="data_pubblicazione" id="data_pubblicazione" class="form-control">
+                    <input type="date" name="data_pubblicazione" id="data_pubblicazione" class="form-control" required>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="editore">Nome editore</label>
-                    <select name="editore" id="editore">
+                    <select name="editore" id="editore" required>
                         <?php foreach($editori as $editore){ echo "<option value='".$editore["id"]."'>".$editore["nome"]."</option>"; } ?>
                     </select>
                 </div>
@@ -75,7 +75,7 @@ $editori = PubblicazioneController::lista_editori($mysql);
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="autori">Autori</label>
-                    <select name="autori[]" id="autori" class="form-control" multiple>
+                    <select name="autori[]" id="autori" class="form-control" multiple required>
                         <?php foreach($autori as $autore){ echo "<option value='".$autore["id"]."'>".$autore["nome"]." ".$autore["cognome"]."</option>"; } ?>
                     </select>
                 </div>

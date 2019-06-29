@@ -28,7 +28,7 @@
                     Utenti
                 </a>
                 <div class="dropdown-menu" aria-labelledby="utentiDropdown">
-                    <a class="nav-link" href="http://104.248.91.99/utenti/index.php">Lista</a>
+                    <a class="dropdown-item" href="http://104.248.91.99/utenti/index.php">Lista</a>
                     <a class="dropdown-item" href="http://104.248.91.99/utenti/index.php?t=4">Più collaborativi</a>
                 </div>
             </li>

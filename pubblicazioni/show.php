@@ -173,7 +173,6 @@
             <h1>Dettagli pubblicazione</h1>
             <p>Titolo: <?php echo $pubblicazione["titolo"]; ?></p>
             <p>ISBN: <?php echo $pubblicazione["isbn"]; ?></p>
-            <p>Editore: <?php echo $pubblicazione["editore"]; ?></p>
             <p>Numero like: <?php echo $num_like; ?></p>
             <p>Autori: <?php echo $autori["nome_cognome"]; ?></p>
             <p>Lingua: <?php echo $pubblicazione["lingua"]; ?></p>

@@ -10,7 +10,7 @@ class PubblicazioneController
     }
 
     public static function visualizza(MYSQL $conn, $isbn) {
-        $pubblicazione = $conn->Execute("SELECT p.*, group_concat(parola) AS parole_chiave FROM Pubblicazione p, Keywords k WHERE k.pubblicazione='".$isbn."' OR isbn ='".$isbn."' GROUP BY isbn;");
+        $pubblicazione = $conn->Execute("SELECT p.*, group_concat(parola) AS parole_chiave FROM Pubblicazione p, Keywords k WHERE k.pubblicazione='".$isbn."' AND isbn ='".$isbn."' GROUP BY isbn;");
         return $pubblicazione[0];
     }
 
@@ -25,6 +25,7 @@ class PubblicazioneController
         return $editori;
     }
 
+
     public static function nuovo_autore(MySQL $conn, $nome, $cognome) {
         $autore = $conn->Execute("INSERT INTO Autore(nome, cognome) VALUES('".$nome."', '".$cognome."')");
         return self::index($conn);
@@ -36,7 +37,7 @@ class PubblicazioneController
     }
 
     public static function lista_autori_pub(MySQL $conn, $isbn){
-        $autori = $conn->Execute("SELECT group_concat(nome, cognome) AS nome_cognome FROM Autore a, Autore_Pubblicazione ap WHERE pubblicazione='".$isbn."' GROUP BY pubblicazione;");
+        $autori = $conn->Execute("SELECT group_concat(nome,' ', cognome) AS nome_cognome FROM Autore a, Autore_Pubblicazione ap WHERE pubblicazione='".$isbn."' AND ap.autore=a.id GROUP BY pubblicazione;");
         return $autori[0];
     }
 
@@ -96,6 +97,7 @@ class PubblicazioneController
     }
 
     public static function nuova_parola_chiave(MySQL $conn, $parola_chiave, $pubblicazione){
+        if(! $parola_chiave) return null;
         $query = "INSERT INTO Keywords(parola, pubblicazione) VALUES(";
         $query = $query."'".$parola_chiave."',";
         $query = $query."'".$pubblicazione."');";
@@ -136,12 +138,10 @@ class PubblicazioneController
         self::nuova_storia($conn, $utente, $isbn, "Inserimento pubblicazione");
 
         foreach($autori as $autore) {
-            $query = "INSERT INTO Autore_Pubblicazione(autore, pubblicazione) VALUES(";
-            $query = $query.$autore.",";
-            $query = $query."'".$isbn."');";
+            $conn->close();
+            $conn->MySQLConnect();
+            $query = "CALL ins_ap(".$autore.", '".$isbn."');";
             $conn->Execute($query);
-
-
         }
 
         return self::visualizza($conn, $isbn);
